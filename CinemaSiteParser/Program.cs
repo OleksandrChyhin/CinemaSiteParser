@@ -50,53 +50,23 @@ for (int i = 0; i < todaysMoviesCounter; i++)
         continue;
     }
 }
-for (int i = todaysMoviesCounter; i < details.Count; i++)
+
+StartPageFrontend startPageFrontend = new StartPageFrontend();
+
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+Console.WriteLine("Використовуйте стрілки для навігації, Enter - для переходу вперед та Escape для переходу назад та завершення роботи програми. Для початку роботи натисніть Enter");
+
+while (true)
 {
-    if (todaysMoviesCounter % 2 != 0)
+    ConsoleKey key = Console.ReadKey(true).Key;
+    if (key == ConsoleKey.Enter)
     {
-        if (i == todaysMoviesCounter)
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 1));
-            continue;
-        }
-        else if (i == todaysMoviesCounter + 1)
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 2));
-            continue;
-        }
-        else if (i == todaysMoviesCounter + 2)
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i + 1 ));
-            continue;
-        }
-        else if (i % 2 != 0)
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i + 2 - 1));
-            continue;
-        }
-        else
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 2));
-            continue;
-        }
-    }
-    else
-    {
-        if (i % 2 != 0)
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i - 1));
-            continue;
-        }
-        else
-        {
-            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i));
-            continue;
-        }
+        break;
     }
 }
 
-
-StartPageFrontend startPageFrontend = new StartPageFrontend();
+Console.Clear();
 
 startPageFrontend.PrintStartPage(moviesList, todaysMoviesCounter);
 
