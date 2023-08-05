@@ -1,8 +1,8 @@
 ﻿using CinemaSiteParser;
-using CinemaSiteParser.Core;
 using CinemaSiteParser.Core.Pages;
+using CinemaSiteParser.Core.HttpClientService;
 using CinemaSiteParser.Models;
-using CinemaSiteParser.Shared;
+using Frontend;
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();
@@ -13,51 +13,103 @@ var provider = services.BuildServiceProvider();
 
 var httpClient = provider.GetRequiredService<IHttpClientService>();
 
-StartPage page = new StartPage(httpClient);
+StartPageService page = new StartPageService(httpClient);
 
 string htmlText = page.GetHtmlCodeAsync("https://planetakino.ua").Result;
 
-IEnumerable<MovieDTO> movies = page.GetMovies(htmlText);
+int todaysMoviesCounter;
 
-List<MovieDTO> movies1 = movies.ToList();
+int moviesQuantity;
+
+IEnumerable<MovieDTO> movies = page.GetMovies(htmlText, out todaysMoviesCounter, out moviesQuantity);
+
+List<MovieDTO> moviesList = movies.ToList();
 
 Console.WriteLine();
 
-MovieDetailsPage[] movieDetails = new MovieDetailsPage[movies.Count()];
+List<MovieDetailsService> details = new List<MovieDetailsService>();
 
 
-for (int i = 0; i < movies.Count(); i++)
+for (int i = 0; i < moviesList.Count(); i++)
 {
-    movieDetails[i] = new MovieDetailsPage(httpClient, movies1[i]);
+    details.Add(new MovieDetailsService(httpClient, moviesList[i]));
 }
 
-Console.WriteLine();
+List<MovieDetailsPageFrontend> movieDetails = new List<MovieDetailsPageFrontend>();
 
-MovieDetailsDTO[] movieDetails2 = new MovieDetailsDTO[movieDetails.Length];
-
-for (int i = 0; i < movieDetails2.Length; i++)
+for (int i = 0; i < todaysMoviesCounter; i++)
 {
-    string htmlText1 = movieDetails[i].GetHtmlCodeAsync(movieDetails[i].CurrPage).Result;
-
-    movieDetails2[i] = movieDetails[i].GetMovieDetails(htmlText1);
+    if (i % 2 != 0)
+    {
+        movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i - 1));
+        continue;
+    }
+    else
+    {
+        movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i));
+        continue;
+    }
+}
+for (int i = todaysMoviesCounter; i < details.Count; i++)
+{
+    if (todaysMoviesCounter % 2 != 0)
+    {
+        if (i == todaysMoviesCounter)
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 1));
+            continue;
+        }
+        else if (i == todaysMoviesCounter + 1)
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 2));
+            continue;
+        }
+        else if (i == todaysMoviesCounter + 2)
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i + 1 ));
+            continue;
+        }
+        else if (i % 2 != 0)
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i + 2 - 1));
+            continue;
+        }
+        else
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i + 2));
+            continue;
+        }
+    }
+    else
+    {
+        if (i % 2 != 0)
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 1, i - 1));
+            continue;
+        }
+        else
+        {
+            movieDetails.Add(new MovieDetailsPageFrontend(details[i], 0, i));
+            continue;
+        }
+    }
 }
 
-Console.WriteLine();
 
-Console.WriteLine();
+StartPageFrontend startPageFrontend = new StartPageFrontend();
 
-//movies = movies.ToArray();
+startPageFrontend.PrintStartPage(moviesList, todaysMoviesCounter);
 
-//MovieDTO movie = movies.Last();
+MenuNavigation menuNavigation = new MenuNavigation();
 
-//MovieDetailsPage movieDetailsPage = new MovieDetailsPage(httpClient, movie);
+menuNavigation.Navigation(movieDetails, moviesList, httpClient, startPageFrontend, todaysMoviesCounter);
 
-//string htmlText2 = movieDetailsPage.GetHtmlCodeAsync(movieDetailsPage.CurrPage).Result;
 
-//htmlText2 = htmlText2.Replace("\n", "");
 
-//htmlText2 = htmlText2.Replace("  ", "");
 
-//MovieDetailsDTO movieDetailsDTO = movieDetailsPage.GetMovieDetails(htmlText2);
 
-//Console.WriteLine();
+
+
+
+
+

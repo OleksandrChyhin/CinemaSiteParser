@@ -1,10 +1,10 @@
-﻿using CinemaSiteParser.Models;
+﻿using CinemaSiteParser.Core.HttpClientService;
+using CinemaSiteParser.Models;
 using CinemaSiteParser.Shared;
-using System.Reflection.Metadata;
 
 namespace CinemaSiteParser.Core.Pages
 {
-    public class MovieDetailsPage : IPage
+    public class MovieDetailsService : IMovieDetailsService
     {
         IHttpClientService _httpClientService;
 
@@ -14,7 +14,7 @@ namespace CinemaSiteParser.Core.Pages
 
         public string CurrPage { get; private set; }
 
-        public MovieDetailsPage(IHttpClientService httpClientService, MovieDTO movie)
+        public MovieDetailsService(IHttpClientService httpClientService, MovieDTO movie)
         {
             _httpClientService = httpClientService;
             _movie = movie;
@@ -58,6 +58,8 @@ namespace CinemaSiteParser.Core.Pages
             movieDetails.Rolling = ParserRegex.GetRolling(htmlCode);
 
             movieDetails.Duration = ParserRegex.GetDuration(htmlCode);
+
+            movieDetails.Description = ParserRegex.GetDescription(htmlCode);
 
             return movieDetails;
         }

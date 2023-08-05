@@ -94,26 +94,37 @@ namespace CinemaSiteParser.Shared
         }
         public static string GetCast(string source)
         {
+            source = source.Replace("-", ".");
+            source = source.Replace("’", "");
+            source = source.Replace(".", "");
             Regex regex = new Regex(Constants.Regex.CAST_REGEX);
             string match = regex.Match(source).Value;
-            Regex innerText = new Regex("\\w+\\s\\w+,(\\s\\w+\\s\\w+,)+\\s\\w+\\s\\w+");
+            Regex innerText = new Regex("\\w+\\s\\w+,(\\s\\w+\\s\\w+,)+\\s\\w+\\s\\w+|\\w+\\s\\w+,\\s\\w+\\s\\w+|[^dd><](\\w+.)+,(\\s(\\w+.)+,)+\\s(\\w+.)+");
             match = innerText.Match(match).Value;
             return match;
         }
         public static string GetDirector(string source)
         {
+            source = source.Replace("-", ".");
+            source = source.Replace("’", "");
             Regex regex = new Regex(Constants.Regex.DIRECTORS_REGEX);
             string match = regex.Match(source).Value;
-            Regex innerText = new Regex("\\w+\\s\\w+|\\w+\\s\\w+,\\s(\\w+\\s\\w+,)+\\s\\w+\\s\\w+");
+            Regex innerText = new Regex("\\w+\\s\\w+|\\w+\\s\\w+,\\s(\\w+\\s\\w+,)+\\s\\w+\\s\\w+|(>(\\w+.)+<)");
             match = innerText.Match(match).Value;
+            match = match.Replace(">", "");
+            match = match.Replace("<", "");
             return match;
         }
         public static string GetScriptAuthor(string source)
         {
+            source = source.Replace("-", ".");
+            source = source.Replace("’", "");
             Regex regex = new Regex(Constants.Regex.SCRIPT_AUTHORS_REGEX);
             string match = regex.Match(source).Value;
-            Regex innerText = new Regex("\\w+\\s\\w+|\\w+\\s\\w+,\\s(\\w+\\s\\w+,)+\\s\\w+\\s\\w+");
+            Regex innerText = new Regex("\\w+\\s\\w+|\\w+\\s\\w+,\\s(\\w+\\s\\w+,)+\\s\\w+\\s\\w+|(>(\\w+.)+,(\\s\\w+.)+<)");
             match = innerText.Match(match).Value;
+            match = match.Replace(">", "");
+            match = match.Replace("<", "");
             return match;
         }
         public static string GetRolling(string source)
@@ -124,7 +135,7 @@ namespace CinemaSiteParser.Shared
             string match2 = regex2.Match(source).Value;
             Regex fromDate = new Regex("З\\s\\w+\\s\\w+\\s\\w+");
             Regex toDate = new Regex("до\\s\\w+\\s\\w+\\s\\w+");
-            string match = fromDate.Match(match1).Value + " " +  toDate.Match(match2).Value;
+            string match = fromDate.Match(match1).Value + " " + toDate.Match(match2).Value;
             return match;
         }
         public static string GetDuration(string source)
@@ -137,9 +148,14 @@ namespace CinemaSiteParser.Shared
         }
         public static string GetDescription(string source)
         {
+            source = source.Replace("\n", "");
+            source = source.Replace("\r", "");
             Regex regex = new Regex(Constants.Regex.DESCRIPRION_REGEX);
             string match = regex.Match(source).Value;
-            match = match.Substring(0, match.Length - 2);
+            Regex innerText = new Regex(">(\\w|\\s|\\.|\\,|\\'|–|\\(|\\)|-|’|\\!|—|:|;|\\?|«|»|\"|%)+<");
+            match = innerText.Match(match).Value;
+            match = match.Replace(">", "");
+            match = match.Replace("<", "");
             return match;
         }
         public static string GetReleaseYear(string source)

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Serialization;
 
-namespace CinemaSiteParser.Core
+namespace CinemaSiteParser.Core.HttpClientService
 {
     public interface IHttpClientService
     {
