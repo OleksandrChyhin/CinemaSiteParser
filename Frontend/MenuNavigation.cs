@@ -17,13 +17,10 @@ namespace Frontend
             int startPosX = 0;
             int startPosY = 0;
             int curPos = 0;
-            int prevPos = 0;
             Console.SetCursorPosition(0, 6);
             while (true)
             {
-
                 ConsoleKey key = Console.ReadKey(true).Key;
-
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
@@ -31,20 +28,12 @@ namespace Frontend
                         {
                             break;
                         }
-                        else if (curPos == counter)
-                        {
-                            prevPos = curPos;
-                            curPos -= 1;
-                            posY -= 2;
-                            HightlightPosition(posX, posY, counter, curPos);
-                            break;
-                        }
+
                         else
                         {
-                            prevPos = curPos;
                             curPos -= 2;
                             posY--;
-                            HightlightPosition(posX, posY, counter, curPos);
+                            HightlightPosition(posX, posY);
                             break;
                         }
                     case ConsoleKey.DownArrow:
@@ -56,32 +45,15 @@ namespace Frontend
                         {
                             break;
                         }
-                        else if (curPos + 1 == counter)
-                        {
-                            prevPos = curPos;
-                            curPos += 1;
-                            posY += 2;
-                            HightlightPosition(posX, posY, counter, curPos);
-                            break;
-                        }
-                        else if (curPos == counter)
-                        {
-                            prevPos = curPos;
-                            curPos += 1;
-                            posY += 1;
-                            HightlightPosition(posX, posY, counter, curPos);
-                            break;
-                        }
                         else
                         {
-                            prevPos = curPos;
                             curPos += 2;
                             posY++;
-                            HightlightPosition(posX, posY, counter, curPos);
+                            HightlightPosition(posX, posY);
                             break;
                         }
                     case ConsoleKey.LeftArrow:
-                        if (posX == startPosX)
+                        if (curPos == startPosX)
                         {
                             break;
                         }
@@ -89,64 +61,33 @@ namespace Frontend
                         {
                             if (posX <= 0)
                             {
-                                prevPos = curPos;
                                 curPos--;
                                 posX = 1;
-                                posY--;
-                                HightlightPosition(posX, posY, counter, curPos);
+                                posY-=1;
+                                HightlightPosition(posX, posY);
                                 break;
                             }
-                            if (curPos == counter)
-                            {
-                                prevPos = curPos;
-                                curPos -= 1;
-                                posX = 0;
-                                posY--;
-                                HightlightPosition(posX, posY, counter, curPos);
-                                break;
-                            }
-                            prevPos = curPos;
-                            posX--;
-                            curPos--;
-                            HightlightPosition(posX, posY, counter, curPos);
+                            posX-=1;
+                            curPos-=1;
+                            HightlightPosition(posX, posY);
                             break;
                         }
                     case ConsoleKey.RightArrow:
-                        if (curPos == endPos)
+                        if (curPos + 1 == endPos)
                         {
                             break;
                         }
                         else if (posX >= 1)
                         {
-                            prevPos = curPos;
                             curPos++;
                             posX = 0;
                             posY++;
-                            HightlightPosition(posX, posY, counter, curPos);
+                            HightlightPosition(posX, posY);
                             break;
                         }
-                        if (curPos + 1 == counter)
-                        {
-                            prevPos = curPos;
-                            curPos += 1;
-                            posX = 0;
-                            posY++;
-                            HightlightPosition(posX, posY, counter, curPos);
-                            break;
-                        }
-                        if (curPos == counter + 1)
-                        {
-                            prevPos = curPos;
-                            curPos += 1;
-                            posX = 0;
-                            posY++;
-                            HightlightPosition(posX, posY, counter, curPos);
-                            break;
-                        }
-                        prevPos = curPos;
                         curPos++;
                         posX++;
-                        HightlightPosition(posX, posY, counter, curPos);
+                        HightlightPosition(posX, posY);
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
@@ -166,43 +107,24 @@ namespace Frontend
                 }
             }
         }
-        void HightlightPosition(int posX, int posY, int counter, int curPos, int prevPos = 0)
+        void HightlightPosition(int posX, int posY)
         {
-            if (posY < counter)
+            if (posY == 0)
             {
-                if (posY == 0)
-                {
-                    Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
-                    return;
-                }
-                if (curPos == counter - 1 && prevPos == counter)
-                {
-                    Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y - 12);
-                    return;
-                }
-                if (curPos == counter  && prevPos == counter)
-                {
-                    Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 12);
-                    return;
-                }
-                else if (posY == 1)
-                {
-                    Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
-                    return;
-                }
-                else
-                {
-                    Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
-                    return;
-                }
+                Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
+                return;
             }
-            if (curPos > counter)
+            else if (posY == 1)
+            {
+                Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
+                return;
+            }
+            else
             {
                 Console.SetCursorPosition(posX * Constants.FrontConstants.STEP_X, posY * Constants.FrontConstants.STEP_Y + 6);
                 return;
             }
         }
-
     }
 }
 

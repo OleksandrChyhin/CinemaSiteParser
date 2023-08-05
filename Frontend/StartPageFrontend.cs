@@ -18,7 +18,7 @@ namespace Frontend
             Console.SetCursorPosition(50, 0);
             Console.Write("Cьогодні в кіно");
 
-            for (int i = 0; i < moviesList.Count(); i++)
+            for (int i = 0; i < counter; i++)
             {
                 if (x > 55)
                 {
@@ -31,17 +31,7 @@ namespace Frontend
                     x = 0;
                     y += 6;
                     Console.SetCursorPosition(x, y);
-                }
-
-                if (i == counter)
-                {
-                    y += 6;
-                    Console.SetCursorPosition(50, y);
-                    Console.Write("Скоро на екранах");
-                    y += 6;
-                    x = 0;
-                    Console.SetCursorPosition(x, y);
-                }
+                }                
 
                 PrintMovieBlock(x, y, moviesList[i]);
                 x += 55;
