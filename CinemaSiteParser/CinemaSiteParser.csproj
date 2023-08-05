@@ -13,7 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaSiteParser.Core\CinemaSiteParser.Core.csproj" />
+    <ProjectReference Include="..\CinemaSiteParser.Models\CinemaSiteParser.Models.csproj" />
     <ProjectReference Include="..\CinemaSiteParser.Shared\CinemaSiteParser.Shared.csproj" />
+    <ProjectReference Include="..\Frontend\Frontend.csproj" />
   </ItemGroup>
 
 </Project>

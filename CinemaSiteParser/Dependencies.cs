@@ -1,4 +1,5 @@
 ﻿using CinemaSiteParser.Core;
+using CinemaSiteParser.Core.HttpClientService;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CinemaSiteParser

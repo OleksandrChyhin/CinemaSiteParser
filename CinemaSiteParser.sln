@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSiteParser", "CinemaSiteParser\CinemaSiteParser.csproj", "{58F9EA1C-203A-4680-B0C5-E9B9CA8502B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSiteParser", "CinemaSiteParser\CinemaSiteParser.csproj", "{58F9EA1C-203A-4680-B0C5-E9B9CA8502B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSiteParser.Core", "CinemaSiteParser.Core\CinemaSiteParser.Core.csproj", "{92D24A9B-ABC2-4A2A-A3E7-E13437ADA6C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSiteParser.Core", "CinemaSiteParser.Core\CinemaSiteParser.Core.csproj", "{92D24A9B-ABC2-4A2A-A3E7-E13437ADA6C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSiteParser.Models", "CinemaSiteParser.Models\CinemaSiteParser.Models.csproj", "{3DDCFCDC-49E6-450E-8C09-17C996D0B013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSiteParser.Models", "CinemaSiteParser.Models\CinemaSiteParser.Models.csproj", "{3DDCFCDC-49E6-450E-8C09-17C996D0B013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSiteParser.Shared", "CinemaSiteParser.Shared\CinemaSiteParser.Shared.csproj", "{12D607BC-72C7-4570-8E64-6D89E2470903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSiteParser.Shared", "CinemaSiteParser.Shared\CinemaSiteParser.Shared.csproj", "{12D607BC-72C7-4570-8E64-6D89E2470903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{6A28E10F-DF2B-4355-A75F-D0C948E5FEC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{12D607BC-72C7-4570-8E64-6D89E2470903}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D607BC-72C7-4570-8E64-6D89E2470903}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12D607BC-72C7-4570-8E64-6D89E2470903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A28E10F-DF2B-4355-A75F-D0C948E5FEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A28E10F-DF2B-4355-A75F-D0C948E5FEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A28E10F-DF2B-4355-A75F-D0C948E5FEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A28E10F-DF2B-4355-A75F-D0C948E5FEC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

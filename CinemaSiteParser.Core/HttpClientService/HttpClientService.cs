@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Net.Http;
 
-namespace CinemaSiteParser.Core
+namespace CinemaSiteParser.Core.HttpClientService
 {
     public class HttpClientService : IHttpClientService, IDisposable
     {
@@ -59,7 +59,7 @@ namespace CinemaSiteParser.Core
 
         public void Dispose()
         {
-           _httpClient?.Dispose();
+            _httpClient?.Dispose();
         }
     }
 }

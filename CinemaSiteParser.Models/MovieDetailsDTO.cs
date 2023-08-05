@@ -23,5 +23,7 @@
         public string Duration { get; set; }
 
         public string AgeRestriction { get; set; }
+
+        public string Description { get; set; }
     }
 }
